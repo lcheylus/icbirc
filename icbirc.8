@@ -1,0 +1,186 @@
+.\" $Id: icbirc.8,v 1.1.1.1 2007/01/11 15:55:54 dhartmei Exp $
+.\"
+.\" Copyright (c) 2003-2004 Daniel Hartmeier.  All rights reserved.
+.\"
+.\" Redistribution and use in source and binary forms, with or without
+.\" modification, are permitted provided that the following conditions
+.\" are met:
+.\" 1. Redistributions of source code must retain the above copyright
+.\"    notice, this list of conditions and the following disclaimer.
+.\" 2. Redistributions in binary form must reproduce the above copyright
+.\"    notice, this list of conditions and the following disclaimer in the
+.\"    documentation and/or other materials provided with the distribution.
+.\"
+.\" THIS SOFTWARE IS PROVIDED BY THE AUTHOR ``AS IS'' AND ANY EXPRESS OR
+.\" IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES
+.\" OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED.
+.\" IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR ANY DIRECT, INDIRECT,
+.\" INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT
+.\" NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
+.\" DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
+.\" THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+.\" (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF
+.\" THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+.\"
+.Dd Aug 6, 2003
+.Dt ICBIRC 8
+.Os
+.Sh NAME
+.Nm icbirc
+.Nd proxy IRC client and ICB server
+.Sh SYNOPSIS
+.Nm icbirc
+.Op Fl d
+.Op Fl l Ar listen-address
+.Op Fl p Ar listen-port
+.Op Fl s Ar server-name
+.Op Fl P Ar server-port
+.Sh DESCRIPTION
+.Nm
+is a proxy that allows to connect an IRC client to an ICB server.
+The proxy accepts client connections, connects to the server, and forwards
+data between those two connections.
+.Pp
+Commands from the IRC client are translated to ICB commands and forwarded
+to the ICB server.
+Messages from the ICB server are translated to IRC messages and forwarded
+to the IRC client.
+.Pp
+The options are as follows:
+.Pp
+.Bl -tag -width xlxlistenxaddress
+.It Fl d
+Do not daemonize (detach from controlling terminal) and produce debugging
+output on stdout/stderr.
+.It Fl l Ar listen-address
+Bind to the specified address when listening for client connections.
+If not specified, connections to any address are accepted.
+.It Fl p Ar listen-port
+Bind to the specified port when listening for client connections.
+Defaults to 6667 when not specified.
+.It Fl s Ar server-name
+Hostname or numerical address of the ICB server to connect to.
+.It Fl P Ar server-port
+Port of the ICB server to connect to.
+Defaults to 7326 when not specified.
+.El
+.Pp
+Example:
+.Bd -literal -offset indent
+$ icbirc -s default.icb.net
+.Ed
+.Pp
+IRC (Internet Relay Chat) and ICB (Internet Citizen's Band) are two separate
+chat protocols.
+ICB is an older and simpler protocol, basically a subset of IRC.
+The two most significant differences (from the client's perspective) are:
+.Pp
+An ICB client can only join a single channel (called group).
+Joining a second channel automatically parts the first channel.
+.Pp
+An ICB channel can only have a single operator (called moderator).
+Giving operator status to a second client automatically removes
+operator status from the first client.
+.Pp
+.Sh SUPPORTED COMMANDS
+.Nm
+supports the following IRC commands:
+.Pp
+.Bl -tag -width MODExoxnickx
+.It PASS
+Set the default group, used during login.
+.It NICK
+Set or change nickname.
+.It USER
+Supply additional user information (like ident), used during login.
+.It LIST
+List all groups.
+.It WHOIS
+Shows information about a user.
+.It WHO
+Lists matching users.
+Arguments starting with '#' are interpreted as channel names
+(listing all users in the specified channel), anything else
+is used for a simple string search within users' 'nick!ident@host'.
+.It JOIN
+Join a group.
+.It PRIVMSG
+Send an open or personal message.
+.It NOTICE
+Same as PRIVMSG.
+.It TOPIC
+Set group topic.
+.It KICK nick
+Boot nick from group.
+.It MODE +o nick
+Pass moderation to nick.
+.It QUIT
+Close client and server connection, wait for next client connection.
+.El
+.Pp
+Additionally, the command RAWICB can be used to send custom ICB
+commands.
+The proxy automatically prefixes the correct command length and
+replaces commas with ICB argument separators.
+For example:
+.Bl -tag -width RAWICBxhmxnickxmsg
+.It RAWICB hm,nick,msg
+Send msg to nick.
+.El
+.Pp
+.Sh SEE ALSO
+.Rs
+.%T Internet Relay Chat Protocol
+.%O RFC 1459
+.Re
+.Rs
+.%T Internet Relay Chat: Client Protocol
+.%O RFC 2812
+.Re
+.Rs
+.%T Internet Relay Chat: Channel Management
+.%O RFC 2811
+.Re
+.Rs
+.%T ICB Protocol
+.%O ftp://ftp.icb.net/pub/icb/src/icbd/Protocol.html
+.Re
+.Rs
+.%T The History of ICB
+.%O http://www.icb.net/history.html
+.Re
+.Rs
+.%T General guide to Netiquette on ICB
+.%O http://www.icb.net/_jrudd/icb/netiquette.html
+.Re
+.Sh HISTORY
+The first version of
+.Nm
+was written in 2003.
+.Sh AUTHORS
+Daniel Hartmeier
+.Aq daniel@benzedrine.cx
+.Sh CAVEATS
+ICB is not IRC.
+Depending on the ICB community on a particular server, netiquette rules
+vary greatly from common IRC rules (or lack thereof).
+.Pp
+Client scripts or other forms of automated client actions might generate
+noise or violate ICB community policies, and lacking support for some
+commands might confuse the script.
+Clients should be properly configured and tested on a dedicated server
+before connecting to a public server.
+.Pp
+In particular, WHOIS and WHO filtering is done on the proxy. Each such
+request causes the proxy to fetch the entire user list from the ICB
+server (there are no ICB commands that take filters), hence automatic
+WHOIS requests from the IRC client can cause unwanted load on the ICB
+server (turn off 'WHOIS on JOIN' in the IRC client, if enabled).
+.Sh BUGS
+On ICB, a moderator (channel operator) can leave the group (channel) and
+rejoin later, preserving his status, as compared to IRC, where the channel
+would be left operator-less in this case.
+The proxy does not currently detect the operator status on rejoin in this
+case, and the IRC client will (temporarily) show the channel op-less.
+.Pp
+IPv6 is not supported yet.
