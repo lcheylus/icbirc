@@ -30,8 +30,6 @@
  *
  */
 
-static const char rcsid[] = "$Id: icbirc.c,v 1.3 2016/04/25 08:17:01 dhartmei Exp $";
-
 #include <sys/types.h>
 #include <sys/socket.h>
 #include <sys/stat.h>

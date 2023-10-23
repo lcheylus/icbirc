@@ -30,8 +30,6 @@
  *
  */
 
-static const char rcsid[] = "$Id: irc.c,v 1.2 2015/08/20 17:29:16 dhartmei Exp $";
-
 #include <stdarg.h>
 #include <stdio.h>
 #include <string.h>
@@ -213,7 +211,7 @@ irc_cmd(const char *cmd, int client_fd, int server_fd)
 void
 irc_send_notice(int fd, const char *format, ...)
 {
-	char cmd[8192], msg[8192];
+	char cmd[16384], msg[8192];
 	va_list ap;
 
 	va_start(ap, format);
@@ -227,7 +225,7 @@ void
 irc_send_code(int fd, const char *from, const char *nick, const char *code,
     const char *format, ...)
 {
-	char cmd[8192], msg[8192];
+	char cmd[16384], msg[8192];
 	va_list ap;
 
 	va_start(ap, format);
