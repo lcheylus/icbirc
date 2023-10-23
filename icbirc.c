@@ -1,5 +1,3 @@
-/*	$Id: icbirc.c,v 1.3 2016/04/25 08:17:01 dhartmei Exp $ */
-
 /*
  * Copyright (c) 2003-2004 Daniel Hartmeier
  * All rights reserved.

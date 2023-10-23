@@ -1,5 +1,3 @@
-/*	$Id: irc.h,v 1.1.1.1 2007/01/11 15:55:54 dhartmei Exp $ */
-
 #ifndef _IRC_H_
 #define _IRC_H_
 

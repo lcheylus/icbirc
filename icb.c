@@ -1,5 +1,3 @@
-/*	$Id: icb.c,v 1.3 2015/08/21 19:01:12 dhartmei Exp $ */
-
 /*
  * Copyright (c) 2003-2004 Daniel Hartmeier
  * All rights reserved.

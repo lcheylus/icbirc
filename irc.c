@@ -1,5 +1,3 @@
-/*	$Id: irc.c,v 1.2 2015/08/20 17:29:16 dhartmei Exp $ */
-
 /*
  * Copyright (c) 2003-2004 Daniel Hartmeier
  * All rights reserved.

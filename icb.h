@@ -1,5 +1,3 @@
-/*	$Id: icb.h,v 1.3 2015/08/21 19:01:12 dhartmei Exp $ */
-
 #ifndef _ICB_H_
 #define _ICB_H_
 
