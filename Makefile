@@ -1,9 +1,16 @@
-# $Id: Makefile,v 1.1.1.1 2007/01/11 15:55:53 dhartmei Exp $
+CC = gcc
+CFLAGS = -Wall -Werror -Wstrict-prototypes
 
-PROG=	icbirc
-SRCS=	icbirc.c icb.c irc.c
-MAN=	icbirc.8
+LIBS = -lbsd
 
-CFLAGS+= -Wall -Werror -Wstrict-prototypes -ansi
+DEPS = icb.h irc.h
+OBJ = icbirc.c icb.c irc.c
 
-.include <bsd.prog.mk>
+%.o: %.c $(DEPS)
+	$(CC) -c -o $@ $< $(CFLAGS)
+
+icbirc: $(OBJ)
+	$(CC) -o $@ $^ $(CFLAGS) $(LIBS)
+
+clean:
+	rm -f icbirc *.o
