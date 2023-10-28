@@ -7,7 +7,7 @@ Initial `icbirc` version for OpenBSD by Daniel Hartmeier.
 
 The following operating systems are supported:
 
-  - :heavy_check_mark: Linux
+  - [x] Linux
   - [ ] OpenBSD
   - [ ] FreeBSD
 
