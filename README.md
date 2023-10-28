@@ -5,11 +5,11 @@ A portable version of **[ircicb](https://www.benzedrine.ch/icbirc.html)**, a pro
 
 Initial `icbirc` version for OpenBSD by Daniel Hartmeier.
 
-**TODO** The following operating systems are supported:
+The following operating systems are supported:
 
-  - Linux
-  - OpenBSD
-  - FreeBSD
+  - :heavy_check_mark: Linux
+  - [ ] OpenBSD
+  - [ ] FreeBSD
 
 ## Dependencies
 
@@ -35,5 +35,3 @@ XXX
 - [RFC 1459](http://www.faqs.org/rfcs/rfc1459.html) Internet Relay Chat Protocol
 - [RFC 2812](http://www.faqs.org/rfcs/rfc2812.html) Internet Relay Chat: Client Protocol
 - [RFC 2811](http://www.faqs.org/rfcs/rfc2811.html) Internet Relay Chat: Channel Management
-
-
