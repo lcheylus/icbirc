@@ -13,7 +13,9 @@ The following operating systems are supported:
 
 ## Dependencies
 
-XXX
+**Linux:**
+
+- `libbsd` for BSD `strlcpy` function
 
 ## Installation
 
