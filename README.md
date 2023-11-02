@@ -33,6 +33,7 @@ XXX
 - [Internet CB NETwork](http://www.icb.net/) web site about ICB and list of current ICB servers
 - [The History of ICB](http://www.icb.net/history.html) by John Rudd and Jon Luini
 - [General guide to Netiquette on ICB](http://www.icb.net/_jrudd/icb/netiquette.html)
+- [irssi-icb](https://github.com/jperkin/irssi-icb) ICB plugin for irssi (IRC client)
 - [ICB Protocol](http://www.icb.net/_jrudd/icb/protocol.html) describes the format of ICB commands and messages
 - [RFC 1459](http://www.faqs.org/rfcs/rfc1459.html) Internet Relay Chat Protocol
 - [RFC 2812](http://www.faqs.org/rfcs/rfc2812.html) Internet Relay Chat: Client Protocol
