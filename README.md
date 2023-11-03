@@ -19,7 +19,31 @@ The following operating systems are supported:
 
 ## Installation
 
-XXX
+**Linux:**
+
+  - build with GNU `make`
+
+## Usage
+
+```bash
+icbirc [-d] [-l address] [-p port] -s server [-P port]
+```
+
+The options are as follows:
+
+- `-d` Do not daemonize (detach from controlling terminal) and produce debugging
+  output on stdout/stderr.
+
+- `-l listen-address` Bind to the specified address when listening for client
+  connections.  If not specified, connections to any address are accepted.
+
+- `-p listen-port` Bind to the specified port when listening for client
+  connections.  Defaults to 6667 when not specified.
+
+- `-s server-name` Hostname or numerical address of the ICB server to connect to.
+
+- `-P server-port` Port of the ICB server to connect to.  Defaults to 7326 when
+  not specified.
 
 ## TODO
 
