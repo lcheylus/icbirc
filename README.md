@@ -48,6 +48,7 @@ The options are as follows:
 ## TODO
 
 - Add configuration file (format TOML)
+- Add logs for debug and output with syslog
 - Add init scripts for BSD
 - Add SystemD service for Linux
 
