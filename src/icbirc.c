@@ -60,7 +60,7 @@ usage(void)
 {
 	extern char *__progname;
 
-	fprintf(stderr, "usage: %s [-d] [-l address] [-p port] "
+	fprintf(stderr, "usage: %s [-d] -c conffile | [-l address] [-p port] "
 	    "-s server [-P port]\n", __progname);
 	exit(1);
 }
@@ -70,6 +70,7 @@ main(int argc, char *argv[])
 {
 	int debug = 0;
 	const char *addr_listen = NULL, *addr_connect = NULL;
+	const char *conf_file = NULL;
 	unsigned port_listen = 6667, port_connect = 7326;
 	int ch;
 	int listen_fd = -1;
@@ -77,10 +78,13 @@ main(int argc, char *argv[])
 	socklen_t len;
 	int val;
 
-	while ((ch = getopt(argc, argv, "dl:p:s:P:")) != -1) {
+	while ((ch = getopt(argc, argv, "dc:l:p:s:P:")) != -1) {
 		switch (ch) {
 		case 'd':
 			debug++;
+			break;
+		case 'c':
+			conf_file = optarg;
 			break;
 		case 'l':
 			addr_listen = optarg;
@@ -99,8 +103,18 @@ main(int argc, char *argv[])
 		}
 	}
 	argc -= optind;
-	if (argc || addr_connect == NULL)
+	if (argc || ((conf_file == NULL) && (addr_connect == NULL)))
 		usage();
+
+	if ((conf_file != NULL) && (addr_connect != NULL)) {
+		printf("Use only configuration file or server address, not both\n");
+		goto error;
+	}
+
+	if (conf_file != NULL) {
+		printf("Configuration file: %s\n", conf_file);
+		goto error;
+	}
 
 	memset(&sa_connect, 0, sizeof(sa_connect));
 	sa_connect.sin_family = AF_INET;

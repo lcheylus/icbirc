@@ -26,13 +26,15 @@ The following operating systems are supported:
 ## Usage
 
 ```bash
-icbirc [-d] [-l address] [-p port] -s server [-P port]
+icbirc [-d] -c conffile | [-l address] [-p port] -s server [-P port]
 ```
 
 The options are as follows:
 
 - `-d` Do not daemonize (detach from controlling terminal) and produce debugging
   output on stdout/stderr.
+
+- `-c` Configuration file (TOML format)
 
 - `-l listen-address` Bind to the specified address when listening for client
   connections.  If not specified, connections to any address are accepted.
@@ -44,6 +46,9 @@ The options are as follows:
 
 - `-P server-port` Port of the ICB server to connect to.  Defaults to 7326 when
   not specified.
+
+Configuration file (set with `-c`) and server-name (set with `-s`) are mutually
+exclusive options.
 
 ## TODO
 
