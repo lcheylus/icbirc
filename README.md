@@ -26,15 +26,17 @@ The following operating systems are supported:
 ## Usage
 
 ```bash
-icbirc [-d] -c conffile | [-l address] [-p port] -s server [-P port]
+icbirc [-h] [-d] -c conffile | [-l address] [-p port] -s server [-P port]
 ```
 
 The options are as follows:
 
+- `-h` Show help message and exit
+
 - `-d` Do not daemonize (detach from controlling terminal) and produce debugging
   output on stdout/stderr.
 
-- `-c` Configuration file (TOML format)
+- `-c conffile` Configuration file (TOML format)
 
 - `-l listen-address` Bind to the specified address when listening for client
   connections.  If not specified, connections to any address are accepted.

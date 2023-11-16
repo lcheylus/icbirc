@@ -50,6 +50,7 @@
 
 int		sync_write(int, const char *, int);
 static void	usage(void);
+static void	options(void);
 static void	handle_client(int);
 
 int terminate_client;
@@ -60,9 +61,24 @@ usage(void)
 {
 	extern char *__progname;
 
-	fprintf(stderr, "usage: %s [-d] -c conffile | [-l address] [-p port] "
+	fprintf(stderr, "usage: %s [-h] [-d] -c conffile | [-l address] [-p port] "
 	    "-s server [-P port]\n", __progname);
-	exit(1);
+}
+
+static void
+options(void)
+{
+	usage();
+
+	printf("\nproxy that allows to connect an IRC client to an ICB server\n\n");
+	printf("options:\n");
+	printf("  -h\t\t\tshow this help message and exit\n");
+	printf("  -d\t\t\tDo not daemonize (detach from controlling terminal)\n\t\t\tand produce debugging output on stdout/stderr\n");
+	printf("  -c conffile\t\tConfiguration file (TOML format)\n");
+	printf("  -l listen-address\tBind to the specified address when listening for client connections.\n\t\t\tIf not specified, connections to any address are accepted\n");
+	printf("  -p listen-port\tBind to the specified port when listening for client connections.\n\t\t\tDefaults to 6667 when not specified\n");
+	printf("  -s server-name\tHostname or numerical address of the ICB server to connect to\n");
+	printf("  -P server-port\tPort of the ICB server to connect to. Defaults to 7326 when not specified\n");
 }
 
 int
@@ -78,8 +94,12 @@ main(int argc, char *argv[])
 	socklen_t len;
 	int val;
 
-	while ((ch = getopt(argc, argv, "dc:l:p:s:P:")) != -1) {
+	while ((ch = getopt(argc, argv, "hdc:l:p:s:P:")) != -1) {
 		switch (ch) {
+		case 'h':
+			options();
+			exit(1);
+			break;
 		case 'd':
 			debug++;
 			break;
@@ -100,11 +120,14 @@ main(int argc, char *argv[])
 			break;
 		default:
 			usage();
+			exit(1);
 		}
 	}
 	argc -= optind;
-	if (argc || ((conf_file == NULL) && (addr_connect == NULL)))
+	if (argc || ((conf_file == NULL) && (addr_connect == NULL))) {
 		usage();
+		exit(1);
+	}
 
 	if ((conf_file != NULL) && (addr_connect != NULL)) {
 		printf("Use only configuration file or server address, not both\n");
