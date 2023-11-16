@@ -3,8 +3,8 @@ CFLAGS = -Wall -Werror -Wstrict-prototypes
 
 LIBS = -lbsd
 
-DEPS = icb.h irc.h
-OBJ = icbirc.c icb.c irc.c
+DEPS = src/icb.h src/irc.h
+OBJ = src/icbirc.c src/icb.c src/irc.c
 
 %.o: %.c $(DEPS)
 	$(CC) -c -o $@ $< $(CFLAGS)
