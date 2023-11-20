@@ -3,8 +3,8 @@ CFLAGS = -Wall -Werror -Wstrict-prototypes
 
 LIBS = -lbsd
 
-DEPS = src/icb.h src/irc.h
-OBJ = src/icbirc.c src/icb.c src/irc.c
+DEPS = src/toml.h src/icb.h src/irc.h
+OBJ = src/toml.c src/icbirc.c src/icb.c src/irc.c
 
 .PHONY: clean install
 
