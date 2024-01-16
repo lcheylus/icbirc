@@ -58,6 +58,7 @@ exclusive options.
 - Add logs for debug and output with syslog
 - Add init scripts for BSD
 - Add SystemD service for Linux
+- Add GitHub workflows for build on Linux, FreeBSD, OpenBSD and NetBSD
 
 ## Related links
 
