@@ -119,7 +119,7 @@ scan(const unsigned char **s, char *d, size_t siz, const char *skip, const char 
 		(*s)++;
 	}
 	if (siz > 0)
-		*d = 0;
+		*d = '\0';
 }
 
 void
@@ -208,6 +208,10 @@ icb_cmd(const unsigned char *cmd, unsigned char len, int fd, int server_fd)
 		irc_send_code(fd, icb_hostid, irc_nick, "002",
 		    "Your host is %s running %s protocol %s",
 		    icb_hostid, icb_serverid, icb_protolevel);
+		irc_send_code(fd, icb_hostid, irc_nick, "003",
+		    "This server was created recently");
+		irc_send_code(fd, icb_hostid, irc_nick, "004",
+		    "%s %d", icb_serverid, icb_protolevel);
 		/* some clients really want to see a MOTD */
 		irc_send_code(fd, icb_hostid, irc_nick, "375",
 		    "ICB server: %s", icb_serverid);
