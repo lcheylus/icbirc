@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2003-2004 Daniel Hartmeier
- * Copyright (c) 2023 Laurent Cheylus <foxy@free.fr>
+ * Copyright (c) 2023-2024 Laurent Cheylus <foxy@free.fr>
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
