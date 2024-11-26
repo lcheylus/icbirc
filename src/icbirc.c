@@ -78,8 +78,8 @@ options(void)
 
 	printf("\nproxy that allows to connect an IRC client to an ICB server\n\n");
 	printf("options:\n");
-	printf("  -h\t\t\tshow this help message and exit\n");
-	printf("  -v\t\t\tshow version\n");
+	printf("  -h\t\t\tShow this help message and exit\n");
+	printf("  -v\t\t\tShow version\n");
 	printf("  -d\t\t\tDo not daemonize (detach from controlling terminal)\n\t\t\tand produce debugging output on stdout/stderr\n");
 	printf("  -c conffile\t\tConfiguration file (TOML format)\n");
 	printf("  -l listen-address\tBind to the specified address when listening for client connections.\n\t\t\tIf not specified, connections to any address are accepted\n");
