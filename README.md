@@ -26,12 +26,14 @@ The following operating systems are supported:
 ## Usage
 
 ```bash
-icbirc [-h] [-d] -c conffile | [-l address] [-p port] -s server [-P port]
+icbirc [-h] [-v] [-d] -c conffile | [-l address] [-p port] -s server [-P port]
 ```
 
 The options are as follows:
 
 - `-h` Show help message and exit
+
+- `-v` Show current version (version + commit hash)
 
 - `-d` Do not daemonize (detach from controlling terminal) and produce debugging
   output on stdout/stderr.
