@@ -48,6 +48,12 @@
 #include "icb.h"
 #include "irc.h"
 
+#define VERSION "2.2"
+
+#ifndef GIT_COMMIT
+#define GIT_COMMIT "devel"
+#endif
+
 int		sync_write(int, const char *, int);
 static void	usage(void);
 static void	options(void);
@@ -61,7 +67,7 @@ usage(void)
 {
 	extern char *__progname;
 
-	fprintf(stderr, "usage: %s [-h] [-d] -c conffile | [-l address] [-p port] "
+	fprintf(stderr, "usage: %s [-h] [-v] [-d] -c conffile | [-l address] [-p port] "
 	    "-s server [-P port]\n", __progname);
 }
 
@@ -73,6 +79,7 @@ options(void)
 	printf("\nproxy that allows to connect an IRC client to an ICB server\n\n");
 	printf("options:\n");
 	printf("  -h\t\t\tshow this help message and exit\n");
+	printf("  -v\t\t\tshow version\n");
 	printf("  -d\t\t\tDo not daemonize (detach from controlling terminal)\n\t\t\tand produce debugging output on stdout/stderr\n");
 	printf("  -c conffile\t\tConfiguration file (TOML format)\n");
 	printf("  -l listen-address\tBind to the specified address when listening for client connections.\n\t\t\tIf not specified, connections to any address are accepted\n");
@@ -94,10 +101,14 @@ main(int argc, char *argv[])
 	socklen_t len;
 	int val;
 
-	while ((ch = getopt(argc, argv, "hdc:l:p:s:P:")) != -1) {
+	while ((ch = getopt(argc, argv, "hvdc:l:p:s:P:")) != -1) {
 		switch (ch) {
 		case 'h':
 			options();
+			exit(1);
+			break;
+		case 'v':
+			printf("%s (%s)\n", VERSION, GIT_COMMIT);
 			exit(1);
 			break;
 		case 'd':
